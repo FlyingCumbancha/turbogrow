@@ -19,7 +19,7 @@ def list_tasks_command(update: Update, context: CallbackContext):
 def task_detail_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     query.answer()
-    # Se espera el callback data en el formato "task_{id}"
+    # Se espera callback data en el formato "task_{id}"
     task_id = int(query.data.split("_")[1])
     task = get_task_by_id(task_id)
     if not task:
@@ -28,21 +28,21 @@ def task_detail_callback(update: Update, context: CallbackContext):
 
     task_id, name, description, frequency, next_due, last_completed, responsible = task
 
-    # Calcular la cuenta regresiva si aplica
+    # Modificar la cuenta regresiva para que se muestre como "Realizar tarea antes de: dd-mm-aa hh:mm"
     if next_due:
-        next_due_dt = datetime.strptime(next_due, '%Y-%m-%d %H:%M')
-        countdown = next_due_dt - datetime.now()
-        countdown_str = str(countdown).split(".")[0]
+        next_due_dt = datetime.strptime(next_due, '%d-%m-%y %H:%M')
+        formatted_next_due = next_due_dt.strftime('%d-%m-%y %H:%M')
+        countdown_str = f"Realizar tarea antes de: {formatted_next_due}"
     else:
-        countdown_str = "N/A"
+        countdown_str = "Realizar tarea antes de: N/A"
 
     text = (
         f"Nombre: {name}\n"
         f"Descripción: {description}\n"
         f"Frecuencia: {frequency} días\n"
-        f"Cuenta regresiva: {countdown_str}\n"
+        f"{countdown_str}\n"
         f"Última vez realizada: {last_completed if last_completed else 'Nunca'}\n"
-        f"Responsable: {responsible if responsible else 'N/A'}"
+        f"Ultimo en realizarla: {responsible if responsible else 'N/A'}"
     )
 
     keyboard = [
@@ -51,6 +51,7 @@ def task_detail_callback(update: Update, context: CallbackContext):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     query.edit_message_text(text, reply_markup=reply_markup)
+
 
 def complete_task_callback(update: Update, context: CallbackContext):
     query = update.callback_query
