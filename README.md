@@ -1,7 +1,3 @@
-A continuación te presento el contenido del README.md sin envolverlo en bloques de código para evitar problemas de interpretación en el frontend:
-
----
-
 # TurboManu
 
 TurboManu es un bot de Telegram diseñado para la administración del "Crude de los Andes Cannabis Club". Este proyecto se integra como un add-on en Home Assistant, permitiendo gestionar dispositivos conectados de manera sencilla y centralizada. Además, cuenta con un sistema de administración que diferencia entre un usuario administrador y usuarios autorizados, y utiliza una base de datos para almacenar la información necesaria.
