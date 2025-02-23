@@ -81,3 +81,18 @@ def complete_task(task_id, user_name):
     """, (now_str, user_name, new_next_due, task_id))
     conn.commit()
     conn.close()
+
+def get_all_tasks():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("SELECT * FROM tasks")
+    tasks = c.fetchall()
+    conn.close()
+    return tasks
+
+def delete_task(task_id):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+    conn.commit()
+    conn.close()

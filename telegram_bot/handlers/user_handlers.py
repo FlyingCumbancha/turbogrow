@@ -81,4 +81,9 @@ def complete_task_callback(update: Update, context: CallbackContext):
     task_id = int(query.data.split("_")[1])
     user = update.effective_user
     complete_task(task_id, user.full_name)
-    query.edit_message_text("Tarea completada. ¡Gracias!")
+    query.edit_message_text("Tarea completada. ¡Gracias vuelva prontoss!")
+
+def return_to_start(update: Update, context: CallbackContext):
+    query = update.callback_query
+    query.answer()
+    query.edit_message_text("Menú principal:\n\nUsa /list_tasks para ver las tareas disponibles.")

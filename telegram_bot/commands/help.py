@@ -15,9 +15,9 @@ def help_command(update: Update, context: CallbackContext) -> None:
         "📖 *Comandos Disponibles en TurboManu* 📖\n\n"
         "• */start* - Inicia el bot y muestra el mensaje de bienvenida.\n"
         "• */help* - Muestra esta ayuda detallada.\n"
-        "• */addtask* - Agrega una nueva tarea. Solo ADMIN\n"
         "• */list_tasks* - Lista todas las tareas pendientes.\n"
-        "• */removetask* - Elimina una tarea. Solo ADMIN \n\n"
+        "• */addtask* - Agrega una nueva tarea. Solo ADMIN\n"
+        "• */deltask* - Elimina una tarea. Solo ADMIN \n\n"
     )
     
     update.message.reply_text(help_message, parse_mode=ParseMode.MARKDOWN)
