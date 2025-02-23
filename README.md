@@ -57,7 +57,7 @@ turbomanu/
 1. **Clona el repositorio:**
 
    git clone https://github.com/flyingcumbancha/turbomanu.git  
-   cd crude_bot
+   cd turbomanu
 
 2. **Instala las dependencias:**
 
