@@ -3,6 +3,7 @@ from telegram import BotCommand
 from telegram_bot.handlers import registrar_handlers
 from telegram_bot.handlers.admin_handlers import add_task_command
 from telegram_bot.handlers.user_handlers import list_tasks_command, task_detail_callback, complete_task_callback
+from telegram_bot.handlers.notifications import notify_due_tasks
 
 def iniciar_bot(config):
     token = config['bot']['token']
@@ -11,6 +12,8 @@ def iniciar_bot(config):
 
     # Asigna el admin_id al bot_data (se lee desde config['admin']['id'])
     dispatcher.bot_data['admin_id'] = config['admin']['id']
+    dispatcher.bot_data['users'] = config['users']
+
 
     # Registra los handlers generales definidos en registrar_handlers
     registrar_handlers(dispatcher, config)
@@ -28,6 +31,8 @@ def iniciar_bot(config):
         BotCommand("list_tasks", "Lista las tareas disponibles"),
         BotCommand("addtask", "Agrega una tarea (solo admin)")
     ]
+
+    updater.job_queue.run_repeating(notify_due_tasks, interval=3600, first=10)
     updater.bot.set_my_commands(commands)
 
     updater.start_polling()

@@ -1,9 +1,9 @@
 import logging
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext
-# from utils.logger import get_logger
+from utils.logger import get_logger
 
-# logger = get_logger(__name__)
+logger = get_logger(__name__)
 
 def start_command(update: Update, context: CallbackContext) -> None:
     """
@@ -21,7 +21,7 @@ def start_command(update: Update, context: CallbackContext) -> None:
     
     # Enviar mensaje al usuario
     update.message.reply_text(welcome_message, parse_mode=ParseMode.MARKDOWN)
-    # logger.info(f"Comando /start ejecutado por {user_first_name}")
+    logger.info(f"Comando /start ejecutado por {user_first_name}")
 
 if __name__ == "__main__":
     # Modo prueba: simulación de llamada al comando /start

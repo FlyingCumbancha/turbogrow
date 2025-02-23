@@ -9,12 +9,27 @@ def list_tasks_command(update: Update, context: CallbackContext):
         update.message.reply_text("No hay tareas disponibles.")
         return
 
+    message_lines = []
     keyboard = []
     for task in tasks:
-        task_id, name, _, _, _, _, _ = task
+        task_id, name, description, frequency, next_due, last_completed, responsible = task
+        
+        # Formatear la próxima fecha (next_due)
+        if next_due:
+            next_due_dt = datetime.strptime(next_due, '%Y-%m-%d %H:%M')
+            formatted_next_due = next_due_dt.strftime('%d-%m-%y %H:%M')
+        else:
+            formatted_next_due = "N/A"
+        
+        # Agregar una línea al mensaje con el título y la próxima fecha
+        message_lines.append(f"• {name} - Realizar antes de: {formatted_next_due}")
+        
+        # Agregar un botón para la tarea
         keyboard.append([InlineKeyboardButton(name, callback_data=f"task_{task_id}")])
+    
+    message_text = "Tareas disponibles:\n" + "\n".join(message_lines) + "\n\nSelecciona una tarea para ver más detalles."
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text("Selecciona una tarea:", reply_markup=reply_markup)
+    update.message.reply_text(message_text, reply_markup=reply_markup)
 
 def task_detail_callback(update: Update, context: CallbackContext):
     query = update.callback_query
@@ -30,18 +45,24 @@ def task_detail_callback(update: Update, context: CallbackContext):
 
     # Modificar la cuenta regresiva para que se muestre como "Realizar tarea antes de: dd-mm-aa hh:mm"
     if next_due:
-        next_due_dt = datetime.strptime(next_due, '%d-%m-%y %H:%M')
+        next_due_dt = datetime.strptime(next_due, '%Y-%m-%d %H:%M')
         formatted_next_due = next_due_dt.strftime('%d-%m-%y %H:%M')
         countdown_str = f"Realizar tarea antes de: {formatted_next_due}"
     else:
         countdown_str = "Realizar tarea antes de: N/A"
+    
+    if last_completed:
+        last_completed_dt = datetime.strptime(last_completed, '%Y-%m-%d %H:%M')
+        formatted_last_completed = last_completed_dt.strftime('%d-%m-%y %H:%M')
+    else:
+        formatted_last_completed = "Nunca"
 
     text = (
         f"Nombre: {name}\n"
         f"Descripción: {description}\n"
         f"Frecuencia: {frequency} días\n"
         f"{countdown_str}\n"
-        f"Última vez realizada: {last_completed if last_completed else 'Nunca'}\n"
+        f"Última vez realizada: {formatted_last_completed if formatted_last_completed else 'Nunca'}\n"
         f"Ultimo en realizarla: {responsible if responsible else 'N/A'}"
     )
 

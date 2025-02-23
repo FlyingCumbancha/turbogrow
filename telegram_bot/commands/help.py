@@ -1,11 +1,12 @@
 import logging
 from telegram import Update, ParseMode
 from telegram.ext import CallbackContext
-# from utils.logger import get_logger
+from utils.logger import get_logger
 
-# logger = get_logger(__name__)
+logger = get_logger(__name__)
 
 def help_command(update: Update, context: CallbackContext) -> None:
+    user_first_name = update.effective_user.first_name if update.effective_user else "Cultivador"
     """
     Función que maneja el comando /help.
     Muestra una guía de los comandos disponibles, centrada en el manejo de tareas.
@@ -17,12 +18,10 @@ def help_command(update: Update, context: CallbackContext) -> None:
         "• */addtask* - Agrega una nueva tarea. Solo ADMIN\n"
         "• */list_tasks* - Lista todas las tareas pendientes.\n"
         "• */removetask* - Elimina una tarea. Solo ADMIN \n\n"
-        "Recuerda: por el momento, TurboManu se centra exclusivamente en la gestión de tareas para optimizar el cultivo.\n\n"
-        "¡Estoy aquí para ayudarte a mantener todo en orden! 🚀"
     )
     
     update.message.reply_text(help_message, parse_mode=ParseMode.MARKDOWN)
-    # logger.info("Comando /help ejecutado.")
+    logger.info(f"Comando /help ejecutado por {user_first_name}")
 
 if __name__ == "__main__":
     # Modo prueba: simulación de llamada al comando /help
