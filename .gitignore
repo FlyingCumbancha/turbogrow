@@ -1,0 +1,22 @@
+# Archivos de Python
+*.pyc
+__pycache__/
+
+# Archivos de configuración locales y entornos virtuales
+.env
+venv/
+*.env
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/
+
+# Otros archivos de logs o temporales
+*.log
+
+# Archivos de dependencias instaladas
+*.egg-info/
+dist/
+build/
+# Archivo con la key del bot
+config/config.yaml
