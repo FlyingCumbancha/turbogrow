@@ -1,16 +1,14 @@
-name: "TurboManu_testing"
-version: "1.0"
-slug: "turbomanu_testing"
-description: "Bot de Telegram para Home Assistant"
+name: "TurboGrow"
+version: "1.0.0"
+slug: "turbogrow"
+description: "Add-on para Home Assistant"
 startup: "services"
 boot: "auto"
-image: "flyingcumbancha/turbomanu_testing:latest"
-auto_update: true
-options: {}
-schema: {}
 arch:
+  - aarch64
   - amd64
   - armv7
-  - aarch64
+options: {}
+schema: {}
 map:
   - config:rw
