@@ -3,14 +3,11 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - master  # Se ejecuta cuando se sube código a master
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [amd64, arm64]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -18,9 +15,9 @@ jobs:
       - name: Read version
         id: version
         run: |
-          VERSION=$(cat VERSION | tr -d '\r' | tr -d '\n' | tr -dc '0-9.')
+          VERSION=$(cat VERSION | tr -d '\r\n' | tr -dc '0-9.')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "VERSION=$VERSION"
+          echo "Usando versión: $VERSION"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -31,21 +28,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Define arch tag
-        id: arch_tag
-        run: |
-          if [ "${{ matrix.arch }}" = "arm64" ]; then
-            echo "arch_tag=aarch64" >> $GITHUB_OUTPUT
-          else
-            echo "arch_tag=${{ matrix.arch }}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Build and push Docker image
+      - name: Build and push multi-arch Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          platforms: linux/${{ matrix.arch }}
+          platforms: linux/amd64,linux/arm64
           tags: |
-            flyingcumbancha/turbomanu_testing-${{ steps.arch_tag.outputs.arch_tag }}:${{ env.VERSION }}
-            flyingcumbancha/turbomanu_testing-${{ steps.arch_tag.outputs.arch_tag }}:latest
+            flyingcumbancha/turbomanu_testing:${{ env.VERSION }}
+            flyingcumbancha/turbomanu_testing:latest
