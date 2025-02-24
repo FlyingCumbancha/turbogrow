@@ -18,5 +18,5 @@ venv/
 *.egg-info/
 dist/
 build/
-# Archivo con la key del bot
+# Archivo con los usuarios
 config/config.yaml

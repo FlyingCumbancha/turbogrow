@@ -1,13 +1,15 @@
-FROM python:3.9
+# Usa una imagen ligera de Python
+FROM python:3.10-slim
 
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar y instalar las dependencias definidas en requirements.txt
-COPY requirements.txt /app/
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# Copia los archivos de requerimientos e instálalos
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar todo el contenido del bot (la nueva estructura de directorios)
-COPY . /app
+# Copia todo el código de la aplicación al contenedor
+COPY . .
 
-# Ejecutar el bot 
+# Especifica el comando para ejecutar el bot
 CMD ["python", "main.py"]

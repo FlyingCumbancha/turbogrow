@@ -1,0 +1,14 @@
+name: "TurboManu_testing"
+version: "1.0"
+slug: "turbomanu_testing"
+description: "Bot de Telegram para Home Assistant"
+startup: "services"
+boot: "auto"
+image: "flyingcumbancha/turbomanu_testing:latest"
+auto_update: true
+options: {}
+schema: {}
+arch:
+  - amd64
+  - armv7
+  - aarch64
