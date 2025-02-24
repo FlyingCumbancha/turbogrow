@@ -1,0 +1,34 @@
+# Configuración principal para turbomanu
+
+# Token del bot de Telegram (requerido para la autenticación y comunicación con la API)
+bot:
+  token: "BOT_TOKEN"     # Token del bot de Telegram
+
+# Configuración del administrador del bot
+admin:
+  id: 923918654         # Telegram ID del admin
+  name: "Agustin"     # Nombre del admin
+
+# Lista de usuarios autorizados para interactuar con el bot
+users:
+  - id: 5801580852       # Telegram ID del usuario autorizado
+    name: "Nico"
+  - id: 5405977974       
+    name: "Joe"
+  - id: 1996840174
+    name: "Cristian"
+  - id: 5227860607
+    name: "Manu"
+
+# Configuración de la base de datos para almacenar la información necesaria
+database:
+  host: "localhost"
+  port: 5432
+  user: "DB_USER"
+  password: "DB_PASSWORD"
+  name: "crude_bot_db"
+
+# Configuracion de conexion a Home Assistant
+ha:
+  url: "HA_URL"
+  token: "HA_TOKEN"

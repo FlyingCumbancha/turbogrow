@@ -3,10 +3,10 @@ import os
 from telegram_bot.bot import iniciar_bot
 from ha_integration.ha_client import conectar_ha
 from utils.tasks_manager import init_db
-from config import BOT_TOKEN, HA_URL, HA_TOKEN, DB_USER, DB_PASSWORD  # ✅ Importamos variables directamente
+from config import VARIABLES_FILE, BOT_TOKEN, HA_URL, HA_TOKEN, DB_USER, DB_PASSWORD
 
 def cargar_config():
-    with open("config/config.yaml", "r") as f:
+    with open(VARIABLES_FILE, "r") as f:  # 🔹 Usa la ruta de config.py
         config = yaml.safe_load(f)
 
     # Asegurar que las credenciales se tomen correctamente desde el entorno

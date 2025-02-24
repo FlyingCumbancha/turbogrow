@@ -12,3 +12,5 @@ arch:
   - amd64
   - armv7
   - aarch64
+map:
+  - config:rw
