@@ -19,4 +19,4 @@ venv/
 dist/
 build/
 # Archivo con los usuarios
-config/config.yaml
+config/variables.yaml
