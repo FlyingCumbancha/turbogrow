@@ -1,7 +1,7 @@
 name: "TurboGrow"
-version: "1.0.4"
+version: "1.1.0"
 slug: "turbogrow"
-description: "Add-on para Home Assistant"
+description: "mvp del addon para control de tareas"
 startup: "services"
 boot: "auto"
 arch:
