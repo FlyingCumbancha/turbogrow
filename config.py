@@ -11,7 +11,7 @@ else:
 # Definir rutas de los archivos
 ENV_FILE = os.path.join(CONFIG_DIR, ".env")
 VARIABLES_FILE = os.path.join(CONFIG_DIR, "config/variables.yaml")
-
+DB_PATH = os.path.join(CONFIG_DIR, "tasks.db")
 #  Cargar variables de entorno desde .env si existe
 if os.path.exists(ENV_FILE):
     load_dotenv(ENV_FILE)

@@ -20,3 +20,4 @@ dist/
 build/
 # Archivo con los usuarios
 config/variables.yaml
+tasks.db
