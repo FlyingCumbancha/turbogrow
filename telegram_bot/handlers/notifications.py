@@ -11,7 +11,7 @@ def notify_due_tasks(context):
             next_due_dt = datetime.strptime(next_due, '%Y-%m-%d %H:%M')
             time_left = next_due_dt - now
             # Si quedan menos de 48 horas para que la tarea se deba realizar
-            if time_left <= timedelta(hours=48):
+            if time_left <= timedelta(hours=36):
                 # Obtenemos la lista de usuarios registrados desde bot_data (se agregará en bot.py)
                 users = context.bot_data.get('users', [])
                 for user in users:
