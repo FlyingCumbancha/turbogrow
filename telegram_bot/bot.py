@@ -1,19 +1,21 @@
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 from telegram import BotCommand
+from config import BOT_TOKEN  # Importamos directamente desde config.py
 from telegram_bot.handlers import registrar_handlers
-from telegram_bot.handlers.user_handlers import list_tasks_command, task_detail_callback, complete_task_callback, return_to_start
-from telegram_bot.handlers.admin_handlers import add_task_command, delete_task_command, confirm_delete_callback, delete_task_confirmed, cancel_delete
+from telegram_bot.handlers.user_handlers import (
+    list_tasks_command, task_detail_callback, complete_task_callback, return_to_start
+)
+from telegram_bot.handlers.admin_handlers import (
+    add_task_command, delete_task_command, confirm_delete_callback, 
+    delete_task_confirmed, cancel_delete
+)
 from telegram_bot.handlers.notifications import notify_due_tasks
 
 def iniciar_bot(config):
-    token = config['bot']['token']
-    updater = Updater(token, use_context=True)
+    if not BOT_TOKEN:
+        raise ValueError("❌ ERROR: El BOT_TOKEN no está configurado correctamente.")
+    updater = Updater(BOT_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
-
-    # Asigna el admin_id al bot_data (se lee desde config['admin']['id'])
-    dispatcher.bot_data['admin_id'] = config['admin']['id']
-    dispatcher.bot_data['users'] = config['users']
-
 
     # Registra los handlers generales definidos en registrar_handlers
     registrar_handlers(dispatcher, config)
