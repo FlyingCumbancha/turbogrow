@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - master  # Se ejecuta cuando se sube código a main
+      - master  # Se ejecuta cuando se sube código a master
 
 jobs:
   build:
@@ -20,7 +20,6 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Usando versión: $VERSION"
 
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -30,11 +29,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: Build and push multi-arch Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64  # 🔹 Agregamos compatibilidad para ARM y x86
           tags: |
             flyingcumbancha/turbomanu_testing:${{ env.VERSION }}
             flyingcumbancha/turbomanu_testing:latest
