@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 RUNNING_IN_DOCKER = os.path.exists("/data/options.json")  # Presente solo en Home Assistant
 
 if RUNNING_IN_DOCKER:
-    CONFIG_DIR = "/root/config/turbomanu"  # Ruta en Home Assistant
+    CONFIG_DIR = "/config/turbomanu/"  # Ruta en Home Assistant
 else:
     CONFIG_DIR = os.path.join(os.getcwd(), "")  # Ruta local
 
