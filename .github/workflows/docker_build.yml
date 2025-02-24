@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main  # Se ejecuta cuando se sube código a main
+      - master  # Se ejecuta cuando se sube código a main
 
 jobs:
   build:
