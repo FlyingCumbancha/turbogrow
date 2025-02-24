@@ -6,13 +6,13 @@ from dotenv import load_dotenv
 RUNNING_IN_DOCKER = os.path.exists("/data/options.json")  # Presente solo en Home Assistant
 
 if RUNNING_IN_DOCKER:
-    CONFIG_DIR = "/config/turbomanu/"  # Ruta en Home Assistant
+    CONFIG_DIR = "/config/turbomanu/config"  # Ruta en Home Assistant
 else:
     CONFIG_DIR = os.path.join(os.getcwd(), "")  # Ruta local
 
 # Definir rutas de los archivos
 ENV_FILE = os.path.join(CONFIG_DIR, ".env")
-VARIABLES_FILE = os.path.join(CONFIG_DIR, "config/variables.yaml")
+VARIABLES_FILE = os.path.join(CONFIG_DIR, "variables.yaml")
 
 # Cargar variables de entorno desde .env si existe
 if os.path.exists(ENV_FILE):
